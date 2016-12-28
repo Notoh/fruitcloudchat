@@ -14,7 +14,7 @@ public class CMDExecutor implements CommandExecutor {
         Player player = (Player) sender;
         PlayerWrapper wrapper = ChatUtils.getCorrespondingWrapper(player);
         if(wrapper == null) {
-            Bukkit.getServer().getLogger().severe("");
+            Bukkit.getServer().getLogger().severe("Wrapper of player " + player.getName() + " cannot be found!");
             return false;
         }
         if(args.length == 0 || args[0].equalsIgnoreCase("help")) {
@@ -83,7 +83,7 @@ public class CMDExecutor implements CommandExecutor {
             }
         }
         if(args[0].equalsIgnoreCase("channels")) {
-            player.sendMessage(ChatColor.GREEN + "The following are channels you can swithc to: ");
+            player.sendMessage(ChatColor.GREEN + "The following are channels you can switch to: ");
             player.sendMessage(ChatColor.YELLOW  + "ALLCHAT");
             if(wrapper.isBT()) {
                 player.sendMessage(ChatColor.AQUA + "BT");
