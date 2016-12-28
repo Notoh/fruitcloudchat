@@ -57,7 +57,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.STAFF);
+                wrapper.setChannel(Channel.DEV);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to DEV.");
                 return true;
             }
@@ -67,7 +67,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.STAFF);
+                wrapper.setChannel(Channel.BT);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to BT.");
                 return true;
             }
@@ -77,7 +77,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.STAFF);
+                wrapper.setChannel(Channel.MOD);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to MOD.");
                 return true;
             }
@@ -104,7 +104,13 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.DARK_PURPLE + "OWNER");
             }
         }
-
+        if(args[0].equalsIgnoreCase("allchat") || args[0].equalsIgnoreCase("general")) {
+            if(wrapper.getChannel() != Channel.ALLCHAT) {
+                wrapper.setChannel(Channel.ALLCHAT);
+                player.sendMessage(ChatColor.GREEN + "Your channel was switched to ALLCHAT.");
+                return true;
+            }
+        }
         return true;
     }
 }
