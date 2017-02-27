@@ -18,6 +18,7 @@ import java.util.ArrayList;
 public class ChatUtils extends JavaPlugin implements Listener {
 
     private static ArrayList<PlayerWrapper> wrappers = new ArrayList<>();
+    static ArrayList<CustomChannel> customChannels = new ArrayList<>();
 
 
     public void onEnable() {
@@ -58,7 +59,11 @@ public class ChatUtils extends JavaPlugin implements Listener {
         PlayerWrapper wrapper = getCorrespondingWrapper(e.getPlayer());
         if(wrapper != null) {
             Channel channel =  wrapper.getChannel();
-            e.setMessage(convertPrefix(channel) + e.getMessage());
+            if(wrapper.getChannel() != Channel.CUSTOM) {
+                 e.setMessage(convertPrefix(channel) + e.getMessage());
+            } else {
+                e.setMessage(wrapper.getCustom().getOwner() + "'s Channel > " + e.getMessage());
+            }
             for(Player player : Bukkit.getOnlinePlayers()) {
                 PlayerWrapper playerWrapper = getCorrespondingWrapper(player);
                 if(playerWrapper != null) {
@@ -78,6 +83,9 @@ public class ChatUtils extends JavaPlugin implements Listener {
                         e.getRecipients().remove(player);
                     }
                     if(channel == Channel.MOD && !playerWrapper.isMod()) {
+                        e.getRecipients().remove(player);
+                    }
+                    if(channel == Channel.CUSTOM && playerWrapper.getCustom() != wrapper.getCustom()) {
                         e.getRecipients().remove(player);
                     }
                 }
@@ -102,5 +110,4 @@ public class ChatUtils extends JavaPlugin implements Listener {
             return "";
         }
     }
-
 }

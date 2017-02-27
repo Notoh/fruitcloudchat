@@ -2,6 +2,9 @@ package com.fruitcloudmc.chatutils;
 
 import org.bukkit.entity.Player;
 
+/**
+ * Created by alexa on 1/21/2017.
+ */
 public class PlayerWrapper {
 
     private Channel channel;
@@ -12,6 +15,7 @@ public class PlayerWrapper {
     private boolean isBT;
     private boolean isOwner;
     private boolean isMod;
+    private CustomChannel custom;
 
     public PlayerWrapper(Player player) {
         this.channel = Channel.ALLCHAT;
@@ -80,5 +84,13 @@ public class PlayerWrapper {
         this.channel = channel;
     }
 
+    void switchCustom(CustomChannel channel) {
+        this.channel = Channel.ALLCHAT;
+        this.custom = channel;
+    }
+
+    CustomChannel getCustom() {
+        return this.custom;
+    }
 
 }
