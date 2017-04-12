@@ -1,0 +1,34 @@
+name: ChatUtils
+author: Notoh
+main: com.fruitcloudmc.chatutils.ChatUtils
+description: Chat Channel plugin for Fruitcloudmc.
+permissions:
+    chatutils.owner:
+        description: owner channel
+        default: op
+        children:
+            chatutils.admin: true
+    chatutils.admin:
+        description: admin channel
+        children:
+            chatutils.dev: true
+    chatutils.dev:
+        description: dev channel
+        children:
+             chatutils.mod: true
+    chatutils.mod:
+        description: mod channel
+        children:
+            chatutils.staff: true
+    chatutils.staff:
+        description: Staff channel
+    chatutils.buildteam:
+        description: bt channel
+    chatutils.switch:
+        description: perm to switch channels
+        default: op
+commands:
+    chat:
+        description: Command for all functions
+        aliases: [c, chatchannels]
+        usage: /<command> [args]
