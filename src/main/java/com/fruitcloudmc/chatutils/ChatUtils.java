@@ -62,7 +62,7 @@ public class ChatUtils extends JavaPlugin implements Listener {
             if(wrapper.getChannel() != Channel.CUSTOM) {
                  e.setMessage(convertPrefix(channel) + e.getMessage());
             } else {
-                e.setMessage(wrapper.getCustom().getOwner() + "'s Channel > " + e.getMessage());
+                e.setMessage(wrapper.getCustom().getOwner().getName() + "'s Channel > " + e.getMessage());
             }
             for(Player player : Bukkit.getOnlinePlayers()) {
                 PlayerWrapper playerWrapper = getCorrespondingWrapper(player);

@@ -7,6 +7,7 @@ import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
+
 public class CMDExecutor implements CommandExecutor {
 
     @Override
@@ -28,7 +29,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.STAFF);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.STAFF);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to STAFF.");
                 wrapper.switchCustom(null);
                 return true;
@@ -39,7 +40,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.ADMIN);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.ADMIN);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to ADMIN.");
                 wrapper.switchCustom(null);
                 return true;
@@ -50,7 +51,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.OWNER);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.OWNER);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to OWNER.");
                 wrapper.switchCustom(null);
                 return true;
@@ -61,7 +62,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.DEV);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.DEV);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to DEV.");
                 wrapper.switchCustom(null);
                 return true;
@@ -72,7 +73,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.BT);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.BT);
                 wrapper.switchCustom(null);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to BT.");
                 return true;
@@ -83,7 +84,7 @@ public class CMDExecutor implements CommandExecutor {
                 player.sendMessage(ChatColor.GREEN + "You don't have permission to switch to that channel!");
                 return true;
             } else {
-                wrapper.setChannel(Channel.MOD);
+                wrapper.setChannel(com.fruitcloudmc.chatutils.Channel.MOD);
                 wrapper.switchCustom(null);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to MOD.");
                 return true;
@@ -110,7 +111,7 @@ public class CMDExecutor implements CommandExecutor {
             if(wrapper.isOwner()) {
                 player.sendMessage(ChatColor.DARK_PURPLE + "OWNER");
             }
-            for(CustomChannel channel : ChatUtils.customChannels) {
+            for(com.fruitcloudmc.chatutils.CustomChannel channel : com.fruitcloudmc.chatutils.ChatUtils.customChannels) {
                 player.sendMessage(ChatColor.DARK_BLUE + channel.toString());
             }
         }
@@ -120,6 +121,9 @@ public class CMDExecutor implements CommandExecutor {
                 wrapper.switchCustom(null);
                 player.sendMessage(ChatColor.GREEN + "Your channel was switched to ALLCHAT.");
                 return true;
+            } else {
+                player.sendMessage("You're already in allchat!");
+                return false;
             }
         }
         if(args[0].equalsIgnoreCase("custom")) {
@@ -132,8 +136,10 @@ public class CMDExecutor implements CommandExecutor {
                         channel.members.add(wrapper);
                         player.sendMessage(ChatColor.GREEN + "You switched to " + channel.toString() +" custom " +
                                 "channel!");
+                        return true;
                     }
                 }
+                player.sendMessage("That channel doesn't exist!");
             }
             if(args[1].equalsIgnoreCase("create") && args.length == 3) {
                 String name = args[2];
@@ -148,18 +154,17 @@ public class CMDExecutor implements CommandExecutor {
                     }
                 }
                 player.sendMessage("You created your channel with name " + name);
-
             }
             if(args[1].equalsIgnoreCase("delete") && args.length == 2) {
                 CustomChannel channel = wrapper.getCustom();
-                if(channel != null) {
+                if(channel != null && channel.getOwner().getName().equals(player.getName())) {
                     for(PlayerWrapper wrap : channel.members) {
                         Player pla = wrap.getCorresponding();
                         pla.sendMessage(ChatColor.GREEN + "The custom channel you were in was deleted so you were " +
                                 "switched to ALLCHAT" +
                                 ".");
                         wrap.switchCustom(null);
-                        wrap.setChannel(Channel.ALLCHAT);
+                        wrap.setChannel(com.fruitcloudmc.chatutils.Channel.ALLCHAT);
                     }
                     channel.members.clear();
                     ChatUtils.customChannels.remove(channel);
