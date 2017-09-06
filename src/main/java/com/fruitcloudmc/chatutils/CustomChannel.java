@@ -4,9 +4,6 @@ import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
 
-/**
- * Created by alexa on 1/21/2017.
- */
 public class CustomChannel {
 
     ArrayList<PlayerWrapper> members = new ArrayList<>();

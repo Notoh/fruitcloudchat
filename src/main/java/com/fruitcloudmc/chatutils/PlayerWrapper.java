@@ -2,9 +2,6 @@ package com.fruitcloudmc.chatutils;
 
 import org.bukkit.entity.Player;
 
-/**
- * Created by alexa on 1/21/2017.
- */
 public class PlayerWrapper {
 
     private Channel channel;
@@ -20,36 +17,13 @@ public class PlayerWrapper {
     public PlayerWrapper(Player player) {
         this.channel = Channel.ALLCHAT;
         this.corresponding = player;
-        if(player.hasPermission("chatutils.owner")) {
-            this.isOwner = true;
-        } else {
-            this.isOwner = false;
-        }
-        if(player.hasPermission("chatutils.admin")) {
-            this.isAdmin = true;
-        } else {
-            this.isAdmin = false;
-        }
-        if(player.hasPermission("chatutils.buildteam")) {
-            this.isBT = true;
-        } else {
-            this.isBT = false;
-        }
-        if(player.hasPermission("chatutils.dev")) {
-            this.isDev = true;
-        } else {
-            this.isDev = false;
-        }
-        if(player.hasPermission("chatutils.staff")) {
-            this.isStaff = true;
-        } else {
-            this.isStaff = false;
-        }
-        if(player.hasPermission("chatutils.mod")) {
-            this.isMod = true;
-        } else {
-            this.isMod = false;
-        }
+
+        this.isOwner = player.hasPermission("chatutils.owner");
+        this.isAdmin = player.hasPermission("chatutils.admin");
+        this.isBT = player.hasPermission("chatutils.buildteam");
+        this.isDev = player.hasPermission("chatutils.dev");
+        this.isStaff = player.hasPermission("chatutils.staff");
+        this.isMod = player.hasPermission("chatutils.mod");
     }
 
     Player getCorresponding() {
